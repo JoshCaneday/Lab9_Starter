@@ -6,6 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "175d70d230a842bbbefa8504887c3080"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
 
   <style>
     button {
@@ -102,6 +110,109 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    errorBtns[0].addEventListener('click', () => {
+      console.log('Console Log: Calculator is ready.');
+    });
+
+    errorBtns[1].addEventListener('click', () => {
+      console.error('Console Error: Something went wrong.');
+    });
+
+    errorBtns[2].addEventListener('click', () => {
+      console.count('Console Count: Clicked');
+    });
+
+    errorBtns[3].addEventListener('click', () => {
+      console.warn('Console Warn: This is a warning!');
+    });
+
+    errorBtns[4].addEventListener('click', () => {
+      let a = 1;
+      console.assert(a === 2, 'Console Assert: a is not equal to 2');
+    });
+
+    errorBtns[5].addEventListener('click', () => {
+      console.clear();
+    });
+
+    errorBtns[6].addEventListener('click', () => {
+      console.dir(document.body);
+    });
+
+    errorBtns[7].addEventListener('click', () => {
+      console.dirxml(document.body);
+    });
+
+    errorBtns[8].addEventListener('click', () => {
+      console.group('Group Demo');
+      console.log('Inside group');
+      console.warn('Grouped warning');
+    });
+
+    errorBtns[9].addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    errorBtns[10].addEventListener('click', () => {
+      const data = [
+        { name: 'Thomas', relation: 'Brother' },
+        { name: 'Scott', relation: 'Father' },
+        { name: 'David', relation: 'Friend' }
+      ];
+      console.table(data);
+    });
+
+    errorBtns[11].addEventListener('click', () => {
+      console.time('Timer');
+    });
+
+    errorBtns[12].addEventListener('click', () => {
+      console.timeEnd('Timer');
+    });
+
+    errorBtns[13].addEventListener('click', () => {
+      function traceCaller() {
+        console.trace('Trace demo');
+      }
+      traceCaller();
+    });
+
+    errorBtns[14].addEventListener('click', () => {
+      nonExistentFunction();
+    });
+
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.log('Global Error Caught:', message);
+      return true;
+    };
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let output = document.querySelector('output');
+      let firstNum = document.querySelector('#first-num').value;
+      let secondNum = document.querySelector('#second-num').value;
+      let operator = document.querySelector('#operator').value;
+      try {
+        if (firstNum === '' || secondNum === '') {
+          throw new InputError('Inputs cannot be empty');
+        }
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch (err) {
+        console.error('Caught calculation error:', err);
+        output.innerHTML = 'Error';
+      } finally {
+        console.log('Calculation attempt finished');
+      }
+    });
+
+    class InputError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = 'InputError';
+      }
+    }
+
   </script>
 </body>
 
